@@ -19,7 +19,6 @@ class cwreporterController extends Controller
 
     public function process($reportName)
     {
-        dd($reportName);
         //load our configration file for easy use.
         $config = config('reports.name.' . $reportName . '');
         $filetype = config('reports.filetype');
