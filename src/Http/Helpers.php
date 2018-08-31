@@ -1,15 +1,5 @@
 <?php
 
-    /**
-     * "app/Helpers/helpers.php"
-     *
-     * This is a helper file to write custom functions to use accress Laravel
-     *
-         * This file is autoloaded using composer.json
-         *
-         * See: https://stackoverflow.com/questions/28290332/best-practices-for-custom-helpers-on-laravel-5
-     */
-
  namespace oliverbj\cwreporter\Http;
 
 class Helper
