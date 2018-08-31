@@ -21,7 +21,6 @@ class cwreporterController extends Controller
     {
         //load our configration file for easy use.
         $config = config('reports.name.' . $reportName . '');
-
         $filetype = config('reports.filetype');
 
         if (!in_array($reportName, array_keys(config('reports.name')))) {
