@@ -20,10 +20,12 @@ This will publish a configuration file: `config/cwreporter.php`. For configurati
 
 # Setup
 
-1. Set up your report in CargoWise One.
+1. Set up your report in CargoWise One. The destination should be a FTP server.
 2. Set up the report in the `config/cwreporter.php` file.
-   ⋅⋅⋅Remember to create a table in your database, and map the columns!
-3. Register a scheduled command, to listen for new reports. (See "**Scheduled Commands**")
+
+   ⋅⋅⋅Remember to create a table in your database, and map the columns! Also remember to set the config files folder path to the same path as the CargoWise One report.
+
+3) Register a scheduled command, to listen for new reports. (See "**Scheduled Commands**")
 
 **Filename**
 
