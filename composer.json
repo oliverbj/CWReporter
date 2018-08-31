@@ -1,0 +1,41 @@
+{
+    "name": "oliverbj/cwreporter",
+    "description": ":description",
+    "license": "license",
+    "authors": [
+        {
+            "name": "author name",
+            "email": "author email",
+            "homepage": "author homepage"
+        }
+    ],
+    "homepage": "https://github.com/oliverbj/cwreporter",
+    "keywords": ["Laravel", "cwreporter"],
+    "require": {
+        "illuminate/support": "~5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~6.0",
+        "orchestra/testbench": "~3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "oliverbj\\cwreporter\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "oliverbj\\cwreporter\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "oliverbj\\cwreporter\\cwreporterServiceProvider"
+            ],
+            "aliases": {
+                "cwreporter": "oliverbj\\cwreporter\\Facades\\cwreporter"
+            }
+        }
+    }
+}

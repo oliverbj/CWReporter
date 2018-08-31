@@ -1,0 +1,112 @@
+<?php
+
+namespace oliverbj\cwreporter\Http\Controllers;
+
+use Illuminate\Support\Facades\Storage;
+use File;
+use Orchestra\Parser\Xml\Facade as XmlParser; // XML Parser
+use Illuminate\Support\Facades\DB;
+use App\Helpers\Helper;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Routing\Controller;
+
+class cwreporterController extends Controller
+{
+    public function __construct()
+    {
+        //Call config here if needed
+    }
+
+    public function process($reportName)
+    {
+        //load our configration file for easy use.
+        $config = config('reports.name.' . $reportName . '');
+        $filetype = config('reports.filetype');
+
+        if (!in_array($reportName, array_keys(config('reports.name')))) {
+            Log::error("report:process - The entered report does not exist in config/reports file! Please make sure it's filled out correctly or create the report.");
+            return;
+        }
+
+        //Get the config filter for the spcific report (XML element => database element)
+        $mapping = $config['columns'];
+
+        //Set the XML elements we need from our XML file.
+        $xmlFilters = array_keys($config['columns']);
+
+        //Search for the files.
+        $filesInFolder = array_filter(Storage::disk('ftp')->files(config('reports.folder')), function ($file) {
+            global $filetype;
+            //This get filename from the FTP server (/reports folder), that includes the current date (YYYY-MM-DD) in the file name.
+            return preg_match('/' . date('Y', time()) . '\-' . date('m', time()) . '\-' . date('d', time()) . '(.*)\.(?i)' . $filetype . '/ms', $file);
+        });
+
+        if (empty($filesInFolder)) {
+            Log::error('report:process - No reports found on the FTP server under this configuration. (Report name: ' . $reportName . ')');
+            return;
+        }
+
+        //Load the new file
+        foreach ($filesInFolder as $file) {
+            $fileName = pathinfo($file);
+        }
+
+        if (strtolower($fileName['extension']) != strtolower($filetype)) {
+            Log::error('report:process - Wrong extension. Found: .' . $fileName['extension'] . ' Expected: .' . $filetype . ' (Report name: ' . $reportName . ')');
+            return;
+        }
+
+        //Fetch the XML file from the FTP server.
+        $xml = XmlParser::extract(Storage::disk('ftp')->get('' . $fileName['dirname'] . '/' . $fileName['basename'] . ''));
+        //Parse the XML data from our XML file.
+        $data = $xml->parse([
+            'report' => ['uses' => '' . $config['element'] . '[' . implode(',', $xmlFilters) . ']', 'default' => null]
+        ]);
+
+        //Apply filter to our array.
+        //Filter options can be set in the config file.
+        //Helper functions can be found in Helpers/helpers.php
+        if (isset($config['filterFunction'])) {
+            $data['report'] = Helper::{$config['filterFunction']}($data['report'], $config['filterKey'], $config['filterValue']);
+        }
+
+        //Switch the columns from the config, so our array keys is our database columns names, instead of our element (XML) names.
+        $insert = [];
+        foreach ($data['report'] as $subarray) {
+            $new_subarray = [];
+            foreach ($subarray as $k => $v) {
+                //If this is enabled, the script will automatically search all values with "commas ,"
+                //and replace them (remove them).
+                //This is so we can insert numbers to our DB, as it does not support comma seperated values.
+                if (isset($config['convertInteger'])) {
+                    $v = str_replace(',', '', $v);
+                }
+
+                //If any of the array values is empty, we need to set them as NULL values
+                //this is done, so MySQL will handle it as NULL.
+                if (empty($v)) {
+                    $v = null;
+                }
+
+                $new_subarray[$mapping[$k]] = $v;
+            }
+            $insert[] = $new_subarray;
+        }
+
+        if (empty($insert)) {
+            Log::error('report:process - This report file does not contain any elements for processing.');
+            return;
+        }
+
+        $insertData = DB::table($config['table'])->insert($insert);
+        if ($insertData) {
+            Log::info('report:process - Report data has been successfully imported. Date: ' . date('Y-m-d H:i:s', time()));
+            //Delete the file from the FTP server.
+            //$delete_file = Storage::disk("ftp")->delete(''.$fileName["dirname"].'/'.$fileName["basename"].'');
+            return;
+        } else {
+            Log::error('report:process - the data could not be inserted into the database. (Report name: ' . $reportName . ')');
+            return;
+        }
+    }
+}
