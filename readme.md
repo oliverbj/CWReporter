@@ -92,8 +92,6 @@ You can also use simple filters, to remove data from the XML (array). This can b
 
 `filterValue` is the value from above key, that we are selecting.
 
-Please note that this step is only needed one time, since with above code, we can now use the command `report:process {reportName}` command, where `{reportName}` is the name of our report, which we have defined in our configuration file above.
-
 # Scheduled Commands
 
 You can setup scheduled commands (cron jobs), by using Laravel task scheduler
@@ -122,6 +120,3 @@ Under development
 
 Created by **Oliver Busk Jensen**
 
-[![Latest Version on Packagist][ico-version]][link-packagist]
-[![Total Downloads][ico-downloads]][link-downloads]
-[![Build Status][ico-travis]][link-travis]
