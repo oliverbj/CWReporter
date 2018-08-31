@@ -20,10 +20,10 @@ class cwreporterController extends Controller
     public function process($reportName)
     {
         //load our configration file for easy use.
-        $config = config('reports.name.' . $reportName . '');
-        $filetype = config('reports.filetype');
+        $config = config('cwreporter.name.' . $reportName . '');
+        $filetype = config('cwreporter.filetype');
 
-        if (!in_array($reportName, array_keys(config('reports.name')))) {
+        if (!in_array($reportName, array_keys(config('cwreporter.name')))) {
             Log::error("report:process - The entered report does not exist in config/reports file! Please make sure it's filled out correctly or create the report.");
             return;
         }

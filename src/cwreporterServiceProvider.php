@@ -26,8 +26,8 @@ class cwreporterServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             // Publishing the configuration file.
             $this->publishes([
-                __DIR__ . '/../config/cwreporter.php' => config_path('cwreporter.php'),
-            ], 'cwreporter.config');
+                __DIR__ . '/config/cwreporter.php' => config_path('cwreporter.php'),
+            ], 'cwreporter');
 
             // Publishing the views.
             /*$this->publishes([
@@ -52,26 +52,13 @@ class cwreporterServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the routes for the application.
-     *
-     * @param  \Illuminate\Routing\Router  $router
-     * @return void
-     */
-    public function setupRoutes(Router $router)
-    {
-        $router->group(['namespace' => 'oliverbj\cwreporter\Http\Controllers'], function ($router) {
-            require __DIR__ . '/Http/routes.php';
-        });
-    }
-
-    /**
      * Register any package services.
      *
      * @return void
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/cwreporter.php', 'cwreporter');
+        $this->mergeConfigFrom(__DIR__ . '/config/cwreporter.php', 'cwreporter');
 
         // Register the service the package provides.
         $this->app->singleton('cwreporter', function ($app) {
@@ -87,5 +74,18 @@ class cwreporterServiceProvider extends ServiceProvider
     public function provides()
     {
         return ['cwreporter'];
+    }
+
+    /**
+     * Define the routes for the application.
+     *
+     * @param  \Illuminate\Routing\Router  $router
+     * @return void
+     */
+    public function setupRoutes(Router $router)
+    {
+        $router->group(['namespace' => 'oliverbj\cwreporter\Http\Controllers'], function ($router) {
+            require __DIR__ . '/Http/routes.php';
+        });
     }
 }

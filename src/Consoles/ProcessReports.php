@@ -19,7 +19,7 @@ class ProcessReports extends Command
      *
      * @var string
      */
-    protected $description = 'Process reports from FTP server';
+    protected $description = 'Process reports from a FTP server.';
 
     /**
      * Create a new command instance.
