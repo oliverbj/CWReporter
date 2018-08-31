@@ -2,6 +2,13 @@
 
 A pakage for Laravel which can be used to process reports from CargoWise One.
 
+### To do's 
+
+- [ ] Improve logging (Show logs in Nova and send to mail)
+- [ ] Improve helper functions (able to define as many functions as needed)
+- [ ] Set date formats (ability to set date-formats for each report)
+
+
 # Installation
 
 Via Composer
