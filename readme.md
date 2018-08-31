@@ -42,7 +42,7 @@ It is indeed possible to add the preg_match function to the configuration file, 
 
 # Configuration
 
-**`config/reports.php`**
+**`config/cwreporter.php`**
 
 The configuration file is build using the logic from the Laravel framework. You may add as many report configurations as you wish.
 
