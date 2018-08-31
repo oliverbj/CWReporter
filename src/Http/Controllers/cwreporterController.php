@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Storage;
 use File;
 use Orchestra\Parser\Xml\Facade as XmlParser; // XML Parser
 use Illuminate\Support\Facades\DB;
-use App\Helpers\Helper;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Routing\Controller;
+use oliverbj\cwreporter\Http\Helper;
 
 class cwreporterController extends Controller
 {
