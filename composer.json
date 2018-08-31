@@ -9,6 +9,16 @@
             "homepage": "author homepage"
         }
     ],
+<<<<<<< HEAD
+=======
+    "license": "MIT",
+    "authors": [{
+        "name": "Oliver Busk Jensen",
+        "email": "oliverbusk@hotmail.com",
+        "homepage": "http://www.test.com"
+    }],
+
+>>>>>>> 5a575d63ec577cb7a62d46e1dbd804b8b5077518
     "homepage": "https://github.com/oliverbj/cwreporter",
     "keywords": ["Laravel", "cwreporter"],
     "require": {
@@ -38,4 +48,8 @@
             }
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 5a575d63ec577cb7a62d46e1dbd804b8b5077518
