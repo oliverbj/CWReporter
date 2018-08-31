@@ -2,19 +2,12 @@
 
 A pakage for Laravel which can be used to process reports from CargoWise One.
 
-<<<<<<< HEAD
-# Usage
+### To do's
 
-CW Reporter selects reports from the FTP server, using Laravel File Storage system - more specifically `Disks`. FTP configurations can be modified in the `config/filesystems.php` file.
-
-CW Reporter selects from the folder `/reports` from the FTP server. This setting can be modified in the report configuration file. It then scans the specified folder for any valid CargowiseOne reports in XML format.
-=======
-### To do's 
 - [ ] Interact with the reports. (Functions to get data/show stats)
 - [ ] Improve logging (Show logs in Nova and send to mail)
 - [ ] Improve helper functions (able to define as many functions as needed)
 - [ ] Set date formats (ability to set date-formats for each report)
-
 
 # Installation
 
@@ -40,7 +33,6 @@ This will publish a configuration file: `config/cwreporter.php`. For configurati
    Remember to create a table in your database, and map the columns! Also remember to set the config files folder path to the same path as the CargoWise One report.
 
 3) Register a scheduled command, to listen for new reports. (See "**Scheduled Commands**")
->>>>>>> 5a575d63ec577cb7a62d46e1dbd804b8b5077518
 
 **Filename**
 
@@ -54,7 +46,8 @@ It is indeed possible to add the preg_match function to the configuration file, 
 **`config/reports.php`**
 =======
 **`config/cwreporter.php`**
->>>>>>> 5a575d63ec577cb7a62d46e1dbd804b8b5077518
+
+> > > > > > > 5a575d63ec577cb7a62d46e1dbd804b8b5077518
 
 The configuration file is build using the logic from the Laravel framework. You may add as many report configurations as you wish.
 
@@ -105,6 +98,7 @@ You can also use simple filters, to remove data from the XML (array). This can b
 `filterValue` is the value from above key, that we are selecting.
 
 <<<<<<< HEAD
+
 # Adding Reports to Artisan Command (One time setup)
 
 In order to be able to run the reports from the artisan command, we must register them as a command:
@@ -144,7 +138,9 @@ $ php artisan report:process MyReportName
 ```
 
 =======
->>>>>>> 5a575d63ec577cb7a62d46e1dbd804b8b5077518
+
+> > > > > > > 5a575d63ec577cb7a62d46e1dbd804b8b5077518
+
 # Scheduled Commands
 
 You can setup scheduled commands (cron jobs), by using Laravel task scheduler
@@ -218,8 +214,8 @@ license. Please see the [license file](license.md) for more information.
 [link-styleci]: https://styleci.io/repos/12345678
 [link-author]: https://github.com/oliverbj
 
-[link-contributors]: ../../contributors]
-=======
+# [link-contributors]: ../../contributors]
+
 # Artisan
 
 This package comes with one command to run the report at any given time from the console:
@@ -236,4 +232,4 @@ Under development
 
 Created by **Oliver Busk Jensen**
 
->>>>>>> 5a575d63ec577cb7a62d46e1dbd804b8b5077518
+> > > > > > > 5a575d63ec577cb7a62d46e1dbd804b8b5077518
