@@ -1,14 +1,12 @@
 {
     "name": "oliverbj/cwreporter",
     "description": ":description",
-    "license": "license",
-    "authors": [
-        {
-            "name": "author name",
-            "email": "author email",
-            "homepage": "author homepage"
-        }
-    ],
+    "license": "MIT",
+    "authors": [{
+        "name": "Oliver Busk Jensen",
+        "email": "oliverbusk@hotmail.com",
+        "homepage": "http://www.test.com"
+    }],
     "homepage": "https://github.com/oliverbj/cwreporter",
     "keywords": ["Laravel", "cwreporter"],
     "require": {
