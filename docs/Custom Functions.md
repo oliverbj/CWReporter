@@ -63,9 +63,7 @@ As the standard format for interacting with a mySQL database is american, all in
 `'convertInteger' => true,`
 
 For example, if your XML file contains a numeric value like this:
-
 `10,000.50`
 
 It will automatically convert it to:
-
 `10000.50`
