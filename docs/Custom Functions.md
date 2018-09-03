@@ -28,9 +28,9 @@ You are able to use the `removeHigher` function to remove specific keys and thei
 
 ```
 'function' => [
-        'name' => 'removeHigher',
-        'filterKey' => 'MilestoneSequenceNo',
-        'filterValue' => 299
+    'name' => 'removeHigher',
+    'filterKey' => 'MilestoneSequenceNo',
+    'filterValue' => 299
 ],
 ```
 
