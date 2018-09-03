@@ -15,7 +15,7 @@ $ composer require oliverbj/cwreporter
 Once installed, be sure to publish the configuration file:
 
 ```bash
-php artisan vendor:publish --tag=cwreporter
+$ php artisan vendor:publish --tag=cwreporter
 ```
 
 This will publish a configuration file: `config/cwreporter.php`. For configuration usage, please see the section "**Configuration**".
