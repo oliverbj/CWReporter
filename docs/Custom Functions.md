@@ -17,9 +17,7 @@ In order to use custom functions, you must specify this in your `config/cwreport
 ```
 
 `name` is the name of the function to use.
-
 `filterKey` is the key of the $array, that we are selecting.
-
 `filterValue` is the value from above key, that we are selecting.
 
 You may use as many functions as you like.
