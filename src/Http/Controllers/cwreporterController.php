@@ -112,7 +112,7 @@ class cwreporterController extends Controller
 
         $insertData = DB::table($config['table'])->insert($insert);
         if ($insertData) {
-            Log::info('report:process - Report data has been successfully imported. Date: ' . date('Y-m-d H:i:s', time()));
+            Log::info('report:process - Report (' . $reportName . ') data has been successfully imported. Date: ' . date('Y-m-d H:i:s', time()));
             //Delete the file from the FTP server.
             //$delete_file = Storage::disk("ftp")->delete(''.$fileName["dirname"].'/'.$fileName["basename"].'');
             return;
