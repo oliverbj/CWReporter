@@ -12,4 +12,4 @@ A pakage for Laravel which can be used to process reports from CargoWise One.
 
 # Documentation
 
-[Please click here to read the documentation](www.cwreporter.rtfd.io).
+[Please click here to read the documentation](http://www.cwreporter.rtfd.io).
