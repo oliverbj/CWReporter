@@ -45,9 +45,7 @@ class cwreporterController extends Controller
         $filesInFolder = array_filter(Storage::disk('ftp')->files(config('cwreporter.folder')), function ($file) {
             global $filetype;
             //This get filename from the FTP server (/reports folder), that includes the current date (YYYY-MM-DD) in the file name.
-            return preg_match('/2018-08-31(.*)\.(?i)' . $filetype . '/ms', $file);
-
-            //return preg_match('/' . date('Y', time()) . '\-' . date('m', time()) . '\-' . date('d', time()) . '(.*)\.(?i)' . $filetype . '/ms', $file);
+            return preg_match('/' . date('Y', time()) . '\-' . date('m', time()) . '\-' . date('d', time()) . '(.*)\.(?i)' . $filetype . '/ms', $file);
         });
 
         if (empty($filesInFolder)) {
