@@ -1,5 +1,7 @@
 # CWReporter
 
+[![Documentation Status](https://readthedocs.org/projects/cwreporter/badge/?version=latest)](https://cwreporter.readthedocs.io/en/latest/?badge=latest)
+
 A pakage for Laravel which can be used to process reports from CargoWise One.
 
 ### To do's
@@ -10,4 +12,4 @@ A pakage for Laravel which can be used to process reports from CargoWise One.
 
 # Documentation
 
-[Please click here to read the documentation](cwreporter.rtfd.io).
+[Please click here to read the documentation](www.cwreporter.rtfd.io).
