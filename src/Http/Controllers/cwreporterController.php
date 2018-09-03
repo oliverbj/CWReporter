@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Routing\Controller;
 use oliverbj\cwreporter\Http\Helper;
+use Illuminate\Support\Facades\Schema;
 
 class cwreporterController extends Controller
 {
@@ -24,7 +25,13 @@ class cwreporterController extends Controller
         $filetype = config('cwreporter.filetype');
 
         if (!in_array($reportName, array_keys(config('cwreporter.name')))) {
-            Log::error("report:process - The entered report does not exist in config/cwreporter file! Please make sure it's filled out correctly or create the report.");
+            Log::error("report:process - The entered report ('.$reportName.') does not exist in config/cwreporter file! Please make sure it's filled out correctly or create the report.");
+            return;
+        }
+
+        //Check if the table exists in our database.
+        if (!Schema::hasTable($config['table'])) {
+            Log::error('report:process - The table ' . $config['table'] . ' does not exist in your database. Report: ' . $reportName . ' ');
             return;
         }
 
