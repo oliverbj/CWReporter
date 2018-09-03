@@ -1,6 +1,6 @@
 # Custom Functions
 
-It's possible to pass custom functions to the CWReporter, which can then help manipulate the XML file.
+It's possible to pass custom functions to the CWReporter, which then can help manipulate the XML file.
 
 # Initializing
 
@@ -41,9 +41,11 @@ Above example will remove all keys from the array, where the tag `MilestoneSeque
 The function `onlyKeepValue` can be used to _search and keep_ specific values.
 
 ```
-'name' => 'onlyKeepValue',
-'filterKey' => 'NextMilestoneDescription',
-'filterValue' => 'Issue',
+'function' => [
+    'name' => 'onlyKeepValue',
+    'filterKey' => 'NextMilestoneDescription',
+    'filterValue' => 'Issue',
+],
 ```
 
 In above example, the array will be stripped of all items, that **does not** contain the word `issue` in their `NextMilestoneDescription` tag.
