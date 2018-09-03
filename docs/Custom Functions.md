@@ -55,3 +55,17 @@ Please note that the `filterValue` in this example accepts multiple values, like
 ```
 
 This will only keep the tags that have the values `issue`, `dk` or `home` in their `NextMilestoneDescription` tag.
+
+# Supporting european number format
+
+As the standard format for interacting with a mySQL database is american, all integeres coming from a source that uses another number format will not be able to parse correctly. To fix this, you should enable the `convertInteger` function like so:
+
+`'convertInteger' => true,`
+
+For example, if your XML file contains a numeric value like this:
+
+`10,000.50`
+
+It will automatically convert it to:
+
+`10000.50`
