@@ -106,7 +106,7 @@ class cwreporterController extends Controller
         }
 
         if (empty($insert)) {
-            Log::error('report:process - This report file does not contain any elements for processing.');
+            Log::error('report:process - This report (' . $reportName . ') file does not contain any elements for processing.');
             return;
         }
 
