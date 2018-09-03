@@ -8,7 +8,7 @@ In order to use custom functions, you must specify this in your `config/cwreport
 
 ```
 'functions' => [
-    function => [
+    'function' => [
         'name' => 'functioname',
         'filterKey' => 'key',
         'filterValue' => 'value'
