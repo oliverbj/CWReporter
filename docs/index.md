@@ -4,11 +4,6 @@ CWReporter is a package for interacting with XML reports from CW1.
 
 Look how easy it is to use:
 
-## Features
-
-- Be awesome
-- Make things faster
-
 ## Installation
 
 Via Composer
@@ -95,18 +90,3 @@ $schedule->command('report:process milestone')
          ->weekdays()
          ->dailyAt('18:30');
 ```
-
-## License
-
-## Contribute
-
-- Issue Tracker: github.com/oliverbj/cwreporter/issues
-- Source Code: github.com/oliverbj/cwreporter
-
-## Support
-
-If you are having issues, please let us know through GitHub issues.
-
-## License
-
-The project is licensed under the MIT license.
