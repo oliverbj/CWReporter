@@ -62,10 +62,13 @@ return [
                 'JobBranch' => 'branch',
                 'Destination' => 'destination',
             ],
-
-            'filterFunction' => 'removeHigher',
-            'filterKey' => 'MilestoneSequenceNo',
-            'filterValue' => 299,
+            'functions' => [
+                'function' => [
+                    'name' => 'removeHigher',
+                    'filterKey' => 'MilestoneSequenceNo',
+                    'filterValue' => 299
+                ]
+            ],
             'convertInteger' => false,
         ],
     ],

@@ -1,6 +1,6 @@
 <?php
 
- namespace oliverbj\cwreporter\Http;
+namespace oliverbj\cwreporter\Http;
 
 class Helper
 {

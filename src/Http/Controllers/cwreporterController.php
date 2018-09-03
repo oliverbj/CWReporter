@@ -20,11 +20,11 @@ class cwreporterController extends Controller
     public function process($reportName)
     {
         //load our configration file for easy use.
-        $config = config('reports.name.' . $reportName . '');
-        $filetype = config('reports.filetype');
+        $config = config('cwreporter.name.' . $reportName . '');
+        $filetype = config('cwreporter.filetype');
 
-        if (!in_array($reportName, array_keys(config('reports.name')))) {
-            Log::error("report:process - The entered report does not exist in config/reports file! Please make sure it's filled out correctly or create the report.");
+        if (!in_array($reportName, array_keys(config('cwreporter.name')))) {
+            Log::error("report:process - The entered report does not exist in config/cwreporter file! Please make sure it's filled out correctly or create the report.");
             return;
         }
 
@@ -35,10 +35,12 @@ class cwreporterController extends Controller
         $xmlFilters = array_keys($config['columns']);
 
         //Search for the files.
-        $filesInFolder = array_filter(Storage::disk('ftp')->files(config('reports.folder')), function ($file) {
+        $filesInFolder = array_filter(Storage::disk('ftp')->files(config('cwreporter.folder')), function ($file) {
             global $filetype;
             //This get filename from the FTP server (/reports folder), that includes the current date (YYYY-MM-DD) in the file name.
-            return preg_match('/' . date('Y', time()) . '\-' . date('m', time()) . '\-' . date('d', time()) . '(.*)\.(?i)' . $filetype . '/ms', $file);
+            return preg_match('/2018-08-31(.*)\.(?i)' . $filetype . '/ms', $file);
+
+            //return preg_match('/' . date('Y', time()) . '\-' . date('m', time()) . '\-' . date('d', time()) . '(.*)\.(?i)' . $filetype . '/ms', $file);
         });
 
         if (empty($filesInFolder)) {
@@ -63,11 +65,14 @@ class cwreporterController extends Controller
             'report' => ['uses' => '' . $config['element'] . '[' . implode(',', $xmlFilters) . ']', 'default' => null]
         ]);
 
-        //Apply filter to our array.
-        //Filter options can be set in the config file.
+        //Apply custom functions to our array.
+        //Functions can be enabled in the config file.
         //Helper functions can be found in Helpers/helpers.php
-        if (isset($config['filterFunction'])) {
-            $data['report'] = Helper::{$config['filterFunction']}($data['report'], $config['filterKey'], $config['filterValue']);
+        if (count($config['functions']) > 0) {
+            foreach ($config['functions'] as $function) {
+                //$data['report'] = Helper::removeHigher($data['report'], 'MilestoneSequenceNo', 299);
+                $data['report'] = Helper::{$function['name']}($data['report'], $function['filterKey'], $function['filterValue']);
+            }
         }
 
         //Switch the columns from the config, so our array keys is our database columns names, instead of our element (XML) names.
