@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Storage;
 use File;
 use Orchestra\Parser\Xml\Facade as XmlParser; // XML Parser
 use Illuminate\Support\Facades\DB;
+use App\Helpers\Helper;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Routing\Controller;
-use oliverbj\cwreporter\Http\Helper;
 use Illuminate\Support\Facades\Schema;
 
 class cwreporterController extends Controller
@@ -21,10 +21,10 @@ class cwreporterController extends Controller
     public function process($reportName)
     {
         //load our configration file for easy use.
-        $config = config('cwreporter.name.' . $reportName . '');
-        $filetype = config('cwreporter.filetype');
+        $config = config('reports.name.' . $reportName . '');
+        $filetype = config('reports.filetype');
 
-        if (!in_array($reportName, array_keys(config('cwreporter.name')))) {
+        if (!in_array($reportName, array_keys(config('reports.name')))) {
             Log::error("report:process - The entered report ('.$reportName.') does not exist in config/cwreporter file! Please make sure it's filled out correctly or create the report.");
             return;
         }
@@ -42,7 +42,7 @@ class cwreporterController extends Controller
         $xmlFilters = array_keys($config['columns']);
 
         //Search for the files.
-        $filesInFolder = array_filter(Storage::disk('ftp')->files(config('cwreporter.folder')), function ($file) {
+        $filesInFolder = array_filter(Storage::disk('ftp')->files(config('reports.folder')), function ($file) {
             global $filetype;
             //This get filename from the FTP server (/reports folder), that includes the current date (YYYY-MM-DD) in the file name.
             return preg_match('/' . date('Y', time()) . '\-' . date('m', time()) . '\-' . date('d', time()) . '(.*)\.(?i)' . $filetype . '/ms', $file);
@@ -74,6 +74,7 @@ class cwreporterController extends Controller
         //Functions can be enabled in the config file.
         //Helper functions can be found in Helpers/helpers.php
         if (count($config['functions']) > 0) {
+            dump($config['functions']);
             foreach ($config['functions'] as $function) {
                 //$data['report'] = Helper::removeHigher($data['report'], 'MilestoneSequenceNo', 299);
                 $data['report'] = Helper::{$function['name']}($data['report'], $function['filterKey'], $function['filterValue']);
@@ -100,7 +101,16 @@ class cwreporterController extends Controller
 
                 $new_subarray[$mapping[$k]] = $v;
             }
+            //Dump
+            dump($new_subarray);
+
+            //Filter out duplicates.
+            $new_subarray = Helper::array_key_unique($new_subarray, $config['unique_column']);
+            dump($new_subarray);
             $insert[] = $new_subarray;
+            //Dmpss
+
+            dump($insert);
         }
 
         if (empty($insert)) {
@@ -108,12 +118,15 @@ class cwreporterController extends Controller
             return;
         }
 
+        // Perform the insert
+        //No dump
         $insertData = DB::table($config['table'])->insert($insert);
+
         if ($insertData) {
             Log::info('report:process - Report (' . $reportName . ') data has been successfully imported. Date: ' . date('Y-m-d H:i:s', time()));
             //Delete the file from the FTP server.
-            //$delete_file = Storage::disk("ftp")->delete(''.$fileName["dirname"].'/'.$fileName["basename"].'');
-            return;
+            $delete_file = Storage::disk('ftp')->delete('' . $fileName['dirname'] . '/' . $fileName['basename'] . '');
+            response()->json(['success' => 'success'], 200);
         } else {
             Log::error('report:process - the data could not be inserted into the database. (Report name: ' . $reportName . ')');
             return;
