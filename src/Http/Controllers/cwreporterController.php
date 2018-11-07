@@ -108,7 +108,6 @@ class cwreporterController extends Controller
             $new_subarray = Helper::array_key_unique($new_subarray, $config['unique_column']);
             dump($new_subarray);
             $insert[] = $new_subarray;
-            //Dmpss
 
             dump($insert);
         }
