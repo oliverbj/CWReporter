@@ -101,7 +101,7 @@ class cwreporterController extends Controller
 
                 $new_subarray[$mapping[$k]] = $v;
             }
-            //Dump
+            //Dumpsss
             dump($new_subarray);
 
             //Filter out duplicates.
