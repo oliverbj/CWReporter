@@ -105,7 +105,9 @@ class cwreporterController extends Controller
             dump($new_subarray);
 
             //Filter out duplicates.
-            $new_subarray = Helper::array_key_unique($new_subarray, $config['unique_column']);
+            if ($config['unique_column']) {
+                $new_subarray = Helper::array_key_unique($new_subarray, $config['unique_column']);
+            }
             dump($new_subarray);
             $insert[] = $new_subarray;
 
