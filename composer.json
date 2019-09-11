@@ -11,7 +11,7 @@
     "homepage": "https://github.com/oliverbj/cwreporter",
     "keywords": ["Laravel", "cwreporter"],
     "require": {
-        "illuminate/support": "~5",
+        "illuminate/support": "^5.7|^6.0",
         "orchestra/parser": "~3.0"
     },
     "require-dev": {
